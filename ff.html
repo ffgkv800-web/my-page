@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إلى أغلى إنسانة</title>
+    <style>
+        body {
+            background-color: #ffeef2;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 400px;
+            width: 90%;
+            position: relative;
+            z-index: 10;
+        }
+        .kitty-batman {
+            width: 150px;
+            margin-bottom: 15px;
+        }
+        h2 { color: #d63384; margin-bottom: 20px; }
+        .btn {
+            padding: 10px 25px;
+            margin: 10px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: 0.3s;
+        }
+        .btn-yes { background-color: #ff4d6d; color: white; }
+        .btn-no { background-color: #6c757d; color: white; }
+        .result-link {
+            display: none;
+            margin-top: 20px;
+            color: #d63384;
+            font-weight: bold;
+            text-decoration: none;
+            word-break: break-all;
+        }
+        .next-btn {
+            display: none;
+            margin-top: 15px;
+            background: #4caf50;
+            color: white;
+        }
+        .heart {
+            position: absolute;
+            color: #ff4d6d;
+            font-size: 20px;
+            animation: float 3s linear infinite;
+            z-index: 1;
+        }
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+        #final-screen { display: none; }
+    </style>
+</head>
+<body>
+
+    <!-- قلوب متحركة في الخلفية -->
+    <script>
+        for (let i = 0; i < 20; i++) {
+            let heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
+            heart.style.delay = Math.random() * 5 + 's';
+            document.body.appendChild(heart);
+        }
+    </script>
+
+    <div class="container" id="quiz-container">
+        <!-- صورة هيلو كيتي وباتمان (استخدمت رابط تجريبي، استبدله بصورتك) -->
+        <img src="data:image/jpeg;base64,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" class="kitty-batman" alt="Hello Kitty & Batman">
+        
+        <div id="question-area">
+            <h2 id="question-text">هل تحبيني؟</h2>
+            <button class="btn btn-yes" onclick="showResult('yes')">نعم</button>
+            <button class="btn btn-no" onclick="showResult('no')">لا</button>
+        </div>
+
+        <div id="result-area">
+            <p id="response-text"></p>
+            <a id="video-link" class="result-link" target="_blank">اضغطي هنا لمشاهدة المقطع 🎬</a>
+            <br>
+            <button class="btn next-btn" id="next-btn" onclick="nextQuestion()">السؤال التالي ⬅️</button>
+        </div>
+
+        <div id="final-screen">
+            <img src="https://pinimg.com" class="kitty-batman">
+            <h2>عزوز يحبك مهما عملتي ❤️</h2>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 1;
+
+        const content = {
+            1: {
+                q: "هل تحبيني؟",
+                yes: { text: "عارف والله! شوف هالمقطع:", link: "https://www.instagram.com/reel/DWcYumlArvT/" },
+                no: { text: "حتى لو لا، شوفي:", link: "https://www.instagram.com/reel/DWKn9SSIIY0/" }
+            },
+            2: {
+                q: "هل ندمانة على فراقي؟",
+                yes: { text: "كنت عارف..", link: "https://www.instagram.com/reel/DWkO0qSooQx/" },
+                no: { text: "ما توقعتها.. بس شوفي:", link: "https://www.instagram.com/reel/DWkDOSMojSq/" }
+            },
+            3: {
+                q: "لو رجع فيكي الزمن تضيعيني من بين اديكي؟",
+                yes: { text: "لا لا متوقعتها منك 💔", link: "https://www.instagram.com/reel/DVwzA9YCMtu/?utm_source=ig_web_copy_link&igsh=NTc4MTIwNjQ2YQ==" },
+                no: { text: "بحبكككككككك ❤️", link: "https://youtu.be/L1JvzZgT25M?si=hKU8mtPkHNPpYg6w" }
+            }
+        };
+
+        function showResult(answer) {
+            const stepData = content[currentStep];
+            const resultArea = document.getElementById('result-area');
+            const questionArea = document.getElementById('question-area');
+            const videoLink = document.getElementById('video-link');
+            const responseText = document.getElementById('response-text');
+
+            questionArea.style.display = 'none';
+            resultArea.style.display = 'block';
+
+            responseText.innerText = stepData[answer].text;
+            
+            if (stepData[answer].link !== "") {
+                videoLink.href = stepData[answer].link;
+                videoLink.style.display = 'inline-block';
+            } else {
+                videoLink.style.display = 'none';
+            }
+
+            document.getElementById('next-btn').style.display = 'inline-block';
+        }
+
+        function nextQuestion() {
+            currentStep++;
+            if (currentStep <= 3) {
+                document.getElementById('question-text').innerText = content[currentStep].q;
+                document.getElementById('question-area').style.display = 'block';
+                document.getElementById('result-area').style.display = 'none';
+                document.getElementById('next-btn').style.display = 'none';
+            } else {
+                document.getElementById('question-area').style.display = 'none';
+                document.getElementById('result-area').style.display = 'none';
+                document.getElementById('final-screen').style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>
