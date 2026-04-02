@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إلى هدوش</title>
+    <style>
+        body {
+            display: flex; justify-content: center; align-items: center;
+            height: 100vh; margin: 0; background-color: #ffe4e1;
+            font-family: 'Arial', sans-serif; overflow: hidden; text-align: center;
+            transition: background-color 1s;
+        }
+        .container {
+            background: white; padding: 30px; border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 85%; max-width: 400px;
+            position: relative; z-index: 10;
+        }
+        h1 { color: #ff4d6d; margin-bottom: 30px; font-size: 22px; line-height: 1.5; }
+        .buttons { 
+            display: flex; justify-content: center; gap: 20px; 
+            position: relative; min-height: 80px; align-items: center;
+        }
+        button {
+            padding: 12px 25px; font-size: 18px; border: none;
+            border-radius: 10px; cursor: pointer; transition: 0.3s;
+        }
+        .yesBtn { background-color: #ff4d6d; color: white; }
+        /* زر "لا" ملون وشغال طبيعي */
+        .noBtn { background-color: #888; color: white; }
+        
+        .step { display: none; animation: fadeIn 1s; }
+        .active { display: block; }
+        .link-btn {
+            display: inline-block; margin-top: 15px; padding: 10px 20px;
+            background-color: #ff4d6d; color: white; text-decoration: none;
+            border-radius: 50px; font-weight: bold; box-shadow: 0 4px 15px rgba(255, 77, 109, 0.3);
+        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .heart { position: fixed; top: -10%; font-size: 20px; animation: fall linear forwards; }
+        @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- المرحلة الأولى -->
+        <div id="step1" class="step active">
+            <h1>بتهون <br> صح انتي كسرتيني</h1>
+            <div class="buttons">
+                <button class="yesBtn" onclick="showStep(2)">نعم</button>
+                <button class="noBtn" onclick="window.open('رابط_اغنية_اذا_ضغطت_لا_هنا', '_blank')">لا</button>
+            </div>
+        </div>
+
+        <!-- المرحلة الثانية: الأغنية الأولى -->
+        <div id="step2" class="step">
+            <h1>اسمعي..</h1>
+            <a href="https://instagram.com" target="_blank" class="link-btn">🎵 تشغيل الأغنية الآن</a>
+            <br>
+            <button class="link-btn" style="background-color: #4a4a4a; font-size: 14px;" onclick="showStep(3)">خلصت الأغنية؟ اضغطي هنا</button>
+        </div>
+
+        <!-- المرحلة الثالثة: السؤال المصيري -->
+        <div id="step3" class="step">
+            <h1>هل ستكوني زوجتي يوماً من الأيام؟ 💍</h1>
+            <div class="buttons">
+                <button class="yesBtn" onclick="finalSurprise()">نعم</button>
+                <button class="noBtn" onclick="window.open('https://youtu.be/kZayRUtiJ0E?si=voJRhRl5hRs89ODa', '_blank')">لا</button>
+            </div>
+        </div>
+
+        <!-- المرحلة الأخيرة: المقطع النهائي (عند ضغط نعم) -->
+        <div id="step4" class="step">
+            <h1>احلى زوجه ام ينال  ❤️</h1>
+            <a href="رابط_المقطع_النهائي_هنا" target="_blank" class="link-btn">📽️ اضغطي لمشاهدة المفاجأة</a>
+        </div>
+    </div>
+
+    <script>
+        function showStep(stepNum) {
+            document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+            document.getElementById('step' + stepNum).classList.add('active');
+            if(stepNum === 2) document.body.style.backgroundColor = '#ffccd5';
+        }
+
+        function finalSurprise() {
+            showStep(4);
+            createHearts();
+        }
+
+        function createHearts() {
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    let heart = document.createElement('div');
+                    heart.className = 'heart';
+                    heart.innerHTML = '❤️';
+                    heart.style.left = Math.random() * 100 + 'vw';
+                    heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                    document.body.appendChild(heart);
+                }, i * 100);
+            }
+        }
+    </script>
+</body>
+</html>
